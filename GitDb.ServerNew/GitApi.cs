@@ -19,43 +19,43 @@ namespace GitDb.Server
 
 		[Route("{branch}/document/{*key}")]
 		[HttpGet]
-		[Authorize(Roles = "admin, read")]
+		//[Authorize(Roles = "admin, read")]
 		public Task<IActionResult> Get(string branch, string key) =>
 			Result(() => _gitDb.Get(branch, key));
 
 		[Route("{branch}/documents/{*key}")]
         [HttpGet]
-        [Authorize(Roles = "admin, read")]
+        //[Authorize(Roles = "admin, read")]
         public Task<IActionResult> GetFiles(string branch, string key) =>
 			Result(() => _gitDb.GetFiles(branch, key));
 
         [Route("{branch}/document")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> Save(string branch, [FromBody] SaveRequest request) =>
 			Result(() => _gitDb.Save(branch, request.Message, request.Document, request.Author));
 
         [Route("{branch}/document/delete")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> Delete(string branch, [FromBody] DeleteRequest request) =>
 			Result(() => _gitDb.Delete(branch, request.Key, request.Message, request.Author));
 
         [Route("tag")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> Tag([FromBody] Reference reference) =>
 			Result(() => _gitDb.Tag(reference));
 
         [Route("branch")]
         [HttpGet]
-        [Authorize(Roles = "admin,read")]
+        //[Authorize(Roles = "admin,read")]
         public Task<IActionResult> GetBranches() =>
 			Result(() => _gitDb.GetAllBranches());
 
         [Route("branch")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> CreateBranch([FromBody] Reference reference) =>
 			Result(() => _gitDb.CreateBranch(reference));
 
@@ -63,7 +63,7 @@ namespace GitDb.Server
 
         [Route("{branch}/transaction")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> CreateTransaction(string branch) =>
             Result(async () =>
             {
@@ -75,33 +75,33 @@ namespace GitDb.Server
 
         [Route("{transactionId}/add")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> AddToTransaction(string transactionId, Document document) =>
 			Result(() => transactions[transactionId].Add(document));
 
         [Route("{transactionId}/addmany")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> AddToTransaction(string transactionId, List<Document> documents) =>
 			Result(() => transactions[transactionId].AddMany(documents));
 
 
         [Route("{transactionId}/delete/{key}")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> DeleteInTransaction(string transactionId, string key) =>
             Result(() => transactions[transactionId].Delete(key));
 
         [Route("{transactionId}/deleteMany")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> DeleteInTransaction(string transactionId, List<string> keys) =>
             Result(() => transactions[transactionId].DeleteMany(keys));
 
 
         [Route("{transactionId}/commit")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> CommitTransaction(string transactionId, [FromBody] CommitTransaction commit) =>
             Result(async () =>
             {
@@ -113,7 +113,7 @@ namespace GitDb.Server
 
         [Route("{transactionId}/abort")]
         [HttpPost]
-        [Authorize(Roles = "admin,write")]
+        //[Authorize(Roles = "admin,write")]
         public Task<IActionResult> AbortTransaction(string transactionId) =>
             Result(async () =>
             {
