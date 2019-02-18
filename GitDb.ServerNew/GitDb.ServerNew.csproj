@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+		<OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,9 +12,6 @@
     <ProjectReference Include="..\GitDb.Local\GitDb.Local.csproj">
       <Name>GitDb.Lore.csproj</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="*"/>
   </ItemGroup>
 
   <ItemGroup>

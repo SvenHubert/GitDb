@@ -1,4 +1,7 @@
-﻿namespace GitDb.Server
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+
+namespace GitDb.ServerNew
 {
 	class Program
 	{
@@ -11,7 +14,14 @@
 			//	new User{ UserName = "GitWriter", Password = "4yzvqhPkHPZbSbuGN4aQ6b",Roles = new [] { "write" }}
 			//};
 			//var auth = new Authentication(users);
+
+			BuildWebHost(args).Run();
 		}
+
+		public static IWebHost BuildWebHost(string[] args) =>
+			WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>()
+				.Build();
 	}
 
 }
