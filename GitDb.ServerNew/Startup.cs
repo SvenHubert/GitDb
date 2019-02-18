@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using GitDb.Core;
+using GitDb.Core.Interfaces;
+using GitDb.Local;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace GitDb.ServerNew
 {
@@ -25,6 +22,15 @@ namespace GitDb.ServerNew
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSingleton<IGitDb>(e =>
+			{
+				return new LocalGitDb(Configuration.GetValue<string>("Settings:Git:RepositoryPath"), 
+					new Logger(),
+					Configuration.GetValue<string>("Settings:Git:Remote:URL"),
+					Configuration.GetValue<string>("Settings:Git:Remote:User:Name"),
+					Configuration.GetValue<string>("Settings:Git:Remote:User:Email"),
+					Configuration.GetValue<string>("Settings:Git:Remote:User:Password"));
+			});
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
@@ -43,5 +49,13 @@ namespace GitDb.ServerNew
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}
+	}
+	class Logger : ILogger
+	{
+		public void Trace(string format, params object[] args) => Console.WriteLine("TRACE: " + format, args);
+		public void Info(string format, params object[] args) => Console.WriteLine("INFO: " + format, args);
+		public void Debug(string format, params object[] args) => Console.WriteLine("DEBUG: " + format, args);
+		public void Warn(string format, params object[] args) => Console.WriteLine("WARB: " + format, args);
+		public void Error(string format, params object[] args) => Console.WriteLine("ERROR: " + format, args);
 	}
 }
