@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitDb.Core\GitDb.Core.csproj">
+      <Name>GitDb.Core.csproj</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitDb.Local\GitDb.Local.csproj">
+      <Name>GitDb.Lore.csproj</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="*"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>
